@@ -1,0 +1,62 @@
+openapi: 3.1.1
+info:
+  title: Dcm Software
+  version: 1.0.0
+paths:
+  /v1/dcmSoftware:
+    get:
+      summary: Get a Dcm Software by VIN
+      operationId: getDcmSoftwareByVin
+      tags:
+        - Dcm Software
+      parameters:
+        - name: vin
+          in: header
+          description: Vehicle Identification Number (VIN)
+          required: true
+          schema:
+            $ref: "../../../build/common/vehicle/vin.yaml#/components/schemas/VIN"
+      responses:
+        200:
+          description: A specific Dcm Software
+          content:
+            application/json:
+              schema:
+                $ref: "../../../build/common/vehicle/dcmSoftware.yaml#/components/schemas/DcmSoftware"
+        404:
+          description: Dcm Software not found
+  /v1/dcmSoftware/{dcmSoftwareId}:
+    get:
+      summary: Get a Dcm Software
+      operationId: getDcmSoftwareByDcmSoftware
+      tags:
+        - Dcm Software
+      parameters:
+        - name: dcmSoftwareId
+          in: path
+          description: Dcm Software Id
+          required: true
+          schema:
+            description: Software Id
+            format: int64
+            type: integer
+      responses:
+        200:
+          description: A specific Dcm Software Id
+          content:
+            application/json:
+              schema:
+                $ref: "../../../build/common/vehicle/dcmSoftware.yaml#/components/schemas/DcmSoftware"
+        404:
+          description: Dcm Software Id not found
+components:
+  securitySchemes:
+    jwtAuthorizer:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://soa-cv-dev-use1-preprod.auth.us-east-1.amazoncognito.com/login
+          tokenUrl: https://soa-cv-dev-use1-preprod.auth.us-east-1.amazoncognito.com/oauth2/token
+          scopes: { }
+security:
+  - jwtAuthorizer: [ ]

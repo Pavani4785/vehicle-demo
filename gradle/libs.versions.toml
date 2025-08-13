@@ -1,0 +1,14 @@
+[libraries]
+cafeStarterMicroservice = { module = "com.subaru.cv.cafe:cv-cafe-starter-microservice" }
+cafeStarterTest = { module = "com.subaru.cv.cafe:cv-cafe-starter-test" }
+cafeStarterFeign = { module = "com.subaru.cv.cafe:cv-cafe-starter-feign" }
+cafeStarterJpa = { module = "com.subaru.cv.cafe:cv-cafe-starter-jpa" }
+cafeStarterOracle = { module = "com.subaru.cv.cafe:cv-cafe-starter-oracle" }
+
+[plugins]
+cafe = { id = "com.subaru.cv.cafe", version = "1.8.0" }
+cafeOpenapiRoot = { id = "com.subaru.cv.cafe.openapi.root", version = "1.8.0" }
+cafeOpenapiDomain = { id = "com.subaru.cv.cafe.openapi.domain", version = "1.8.0" }
+cafeOpenapiClient = { id = "com.subaru.cv.cafe.openapi.client", version = "1.8.0" }
+cafeOpenapiService = { id = "com.subaru.cv.cafe.openapi.service", version = "1.8.0" }
+springBoot = { id = "org.springframework.boot", version = "3.2.2" }

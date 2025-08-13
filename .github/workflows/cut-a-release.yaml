@@ -1,0 +1,9 @@
+name: Cut A Release And Publish
+
+on:
+  workflow_dispatch:
+
+jobs:
+  cut-a-release:
+    uses: subaruofamerica/cv-cicd-workflows/.github/workflows/gradle-cut-a-release.yaml@main
+    secrets: inherit

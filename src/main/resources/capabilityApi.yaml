@@ -1,0 +1,58 @@
+openapi: 3.1.1
+info:
+  title: Base Capability
+  version: 1.0.0
+paths:
+  /v1/capabilities/{capabilityCode}:
+    get:
+      summary: Get a Base Capability
+      operationId: getCapability
+      tags:
+        - Capability
+      parameters:
+        - name: capabilityCode
+          in: path
+          description: Capability Code
+          required: true
+          schema:
+            type: string
+            maxLength: 250
+            minLength: 1
+      responses:
+        200:
+          description: A specific base capability
+          content:
+            application/json:
+              schema:
+                $ref: "../../../build/common/vehicle/baseCapability.yaml#/components/schemas/BaseCapability"
+        404:
+          description: Base Capability not found
+  /v1/capabilities:
+    get:
+      summary: List Base Capabilities
+      operationId: listCapabilities
+      tags:
+        - Capability
+      responses:
+        200:
+          description: A list of base capabilities
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "../../../build/common/vehicle/baseCapability.yaml#/components/schemas/BaseCapability"
+                uniqueItems: true
+        404:
+          description: Base Capabilities not found
+components:
+  securitySchemes:
+    jwtAuthorizer:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://soa-cv-dev-use1-preprod.auth.us-east-1.amazoncognito.com/login
+          tokenUrl: https://soa-cv-dev-use1-preprod.auth.us-east-1.amazoncognito.com/oauth2/token
+          scopes: { }
+security:
+  - jwtAuthorizer: [ ]

@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: vehicle-service
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        default_schema: VEHMST
+
+logging:
+  level:
+    root: warn

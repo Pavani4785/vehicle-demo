@@ -1,0 +1,61 @@
+openapi: 3.1.1
+info:
+  title: Dcm
+  version: 1.0.0
+paths:
+  /v1/dcm:
+    get:
+      summary: Get a Dcm by VIN
+      operationId: getDcmByVin
+      tags:
+        - Dcm
+      parameters:
+        - name: vin
+          in: header
+          description: Vehicle Identification Number (VIN)
+          required: true
+          schema:
+            $ref: "../../../build/common/vehicle/vin.yaml#/components/schemas/VIN"
+      responses:
+        200:
+          description: A specific dcm
+          content:
+            application/json:
+              schema:
+                $ref: "../../../build/common/vehicle/dcm.yaml#/components/schemas/Dcm"
+        404:
+          description: Dcm not found
+  /v1/dcm/{dcmId}:
+    get:
+      summary: Get a Dcm
+      operationId: getDcmByDcmId
+      tags:
+        - Dcm
+      parameters:
+        - name: dcmId
+          in: path
+          description: Dcm id
+          required: true
+          schema:
+            format: int64
+            type: integer
+      responses:
+        200:
+          description: A specific dcm
+          content:
+            application/json:
+              schema:
+                $ref: "../../../build/common/vehicle/dcm.yaml#/components/schemas/Dcm"
+        404:
+          description: Dcm not found
+components:
+  securitySchemes:
+    jwtAuthorizer:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://soa-cv-dev-use1-preprod.auth.us-east-1.amazoncognito.com/login
+          tokenUrl: https://soa-cv-dev-use1-preprod.auth.us-east-1.amazoncognito.com/oauth2/token
+          scopes: { }
+security:
+  - jwtAuthorizer: [ ]

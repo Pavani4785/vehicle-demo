@@ -1,0 +1,72 @@
+openapi: 3.1.1
+info:
+  title: Vehicle
+  version: 1.0.0
+paths:
+  /v1/vehicles:
+    get:
+      summary: Get a Vehicle
+      operationId: getVehicleByVin
+      tags:
+        - Vehicle
+      parameters:
+        - name: vin
+          in: header
+          description: Vehicle Identification Number (VIN)
+          required: true
+          schema:
+            $ref: "../../../build/common/vehicle/vin.yaml#/components/schemas/VIN"
+      responses:
+        200:
+          description: A specific vehicle
+          content:
+            application/json:
+              schema:
+                $ref: "../../../build/common/vehicle/vehicle.yaml#/components/schemas/Vehicle"
+        404:
+          description: Vehicle not found
+    post:
+      summary: Get vehicles by a set of Vins
+      operationId: getVehiclesByVins
+      tags:
+        - Vehicle
+      parameters: [ ]
+      requestBody:
+        description: Vehicle Identification Number (VIN)
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                vins:
+                  type: array
+                  items:
+                    $ref: "../../../build/common/vehicle/vin.yaml#/components/schemas/VIN"
+                  maxItems: 1000
+                  uniqueItems: true
+              required:
+                - vins
+      responses:
+        200:
+          description: Vehicles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "../../../build/common/vehicle/vehicle.yaml#/components/schemas/Vehicle"
+                uniqueItems: true
+        404:
+          description: Vehicles not found
+components:
+  securitySchemes:
+    jwtAuthorizer:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://soa-cv-dev-use1-preprod.auth.us-east-1.amazoncognito.com/login
+          tokenUrl: https://soa-cv-dev-use1-preprod.auth.us-east-1.amazoncognito.com/oauth2/token
+          scopes: { }
+security:
+  - jwtAuthorizer: [ ]

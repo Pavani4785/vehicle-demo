@@ -1,0 +1,172 @@
+### List Capabilities
+GET {{base.url}}/v1/capabilities
+Authorization: Bearer {{$auth.token("jwtAuthorization")}}
+
+> {%
+    client.test("Response status code is 200", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    })
+%}
+
+### Get Capability
+GET {{base.url}}/v1/capabilities/POWERTRAIN
+Authorization: Bearer {{$auth.token("jwtAuthorization")}}
+
+> {%
+    client.test("Response status code is 200", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    })
+%}
+
+### Get DCM By VIN
+GET {{base.url}}/v1/dcm
+Vin: 4S4BRCCC8C3268735
+Authorization: Bearer {{$auth.token("jwtAuthorization")}}
+
+> {%
+    client.test("Response status code is 200", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    })
+%}
+
+### Get DCM By ID
+GET {{base.url}}/v1/dcm/01
+Authorization: Bearer {{$auth.token("jwtAuthorization")}}
+
+> {%
+    client.test("Response status code is 200", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    })
+%}
+
+### Get DCM Generation By VIN
+GET {{base.url}}/v1/dcmGeneration
+Vin: JF1ZNBE13R9756443
+Authorization: Bearer {{$auth.token("jwtAuthorization")}}
+
+> {%
+    client.test("Response status code is 200", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    })
+%}
+
+### Get DCM Generation By ID
+GET {{base.url}}/v1/dcmGeneration/03
+Authorization: Bearer {{$auth.token("jwtAuthorization")}}
+
+> {%
+    client.test("Response status code is 200", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    })
+%}
+
+### Get DCM Software By Software ID
+GET {{base.url}}/v1/dcmSoftware/57523
+Authorization: Bearer {{$auth.token("jwtAuthorization")}}
+
+> {%
+    client.test("Response status code is 200", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    })
+%}
+
+### Get DCM Software By VIN
+GET {{base.url}}/v1/dcmSoftware
+Vin: 4S4BRCCC8C3268735
+Authorization: Bearer {{$auth.token("jwtAuthorization")}}
+
+> {%
+    client.test("Response status code is 200", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    })
+%}
+
+### Get Model By Model Key
+GET {{base.url}}/v1/models/RRF-31-2024.0
+Authorization: Bearer {{$auth.token("jwtAuthorization")}}
+
+> {%
+    client.test("Response status code is 200", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    })
+%}
+
+### Get Model By VIN
+GET {{base.url}}/v1/models
+Vin: 4S4BRCLC3C3273504
+Authorization: Bearer {{$auth.token("jwtAuthorization")}}
+
+> {%
+    client.test("Response status code is 200", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    })
+%}
+
+### Get Capability Codes By Model Key
+GET {{base.url}}/v1/models/RRF-31-2024.0/capabilityCodes
+Authorization: Bearer {{$auth.token("jwtAuthorization")}}
+
+> {%
+    client.test("Response status code is 200", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    })
+%}
+
+### List Model Capabilities
+GET {{base.url}}/v1/models/RRF-31-2024.0/capabilities
+Authorization: Bearer {{$auth.token("jwtAuthorization")}}
+
+> {%
+    client.test("Response status code is 200", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    })
+%}
+
+### Get Vehicles By VINs
+POST {{base.url}}/v1/vehicles
+Authorization: Bearer {{$auth.token("jwtAuthorization")}}
+Content-Type: application/json
+
+{
+  "vins": [
+    "4S4BRCLC3C3273504",
+    "4S4BRCAC3C3287986"
+  ]
+}
+
+> {%
+    client.test("Response status code is 200", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    })
+%}
+
+### Get Vehicle By VIN
+GET {{base.url}}/v1/vehicles
+Vin: 4S4BRCAC3C3287986
+Authorization: Bearer {{$auth.token("jwtAuthorization")}}
+
+> {%
+    client.test("Response status code is 200", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    })
+%}
+
+### Get Generated OpenAPI Specification
+GET {{base.url}}/openapi/v3/api-docs.yaml
+Accept: application/vnd.oai.openapi
+
+> {%
+    client.test("Response status code is 200", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    })
+%}
+
+### Get Generated OpenAPI Specification
+GET {{base.url}}/openapi/v3/api-docs
+Accept: application/vnd.oai.openapi
+
+> {%
+    client.test("Response status code is 200", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    })
+%}

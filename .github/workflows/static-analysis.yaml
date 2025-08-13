@@ -1,0 +1,11 @@
+name: Cron - Perform Static Code Analysis
+on:
+  workflow_dispatch:
+  schedule:
+    # 12:30 AM EST
+    - cron: "30 5 * * *"
+
+jobs:
+  static-analysis:
+    uses: SubaruOfAmerica/cv-cicd-workflows/.github/workflows/static-code-analysis.yaml@main
+    secrets: inherit

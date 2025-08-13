@@ -1,0 +1,31 @@
+spring:
+  jpa:
+    properties:
+      hibernate:
+        show_sql: false
+        format_sql: false
+        highlight_sql: false
+  config:
+    import: aws-secretsmanager:soa-cv-preprod-useast1-qa-oracle-vehicle-master?prefix=cafe.datasource.secret.
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_vs89AFMri
+
+logging:
+  level:
+    root: info
+cafe:
+  datasource:
+    host: 10.235.2.78
+    port: 1521
+    dbname: teleqa7.ashqaintdbprvsn.ashqaintvcn.oraclevcn.com
+
+springdoc:
+  swagger-ui:
+    oauth2-redirect-url: http://localhost:8080/openapi/v3/swagger-ui/oauth2-redirect.html
+    oauth:
+      client-id: 30ego3hvaibjos4dg0n54690a0
+      client-secret:
+      app-name: vehicle-service

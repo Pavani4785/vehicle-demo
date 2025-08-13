@@ -1,0 +1,62 @@
+openapi: 3.1.1
+info:
+  title: Dcm Generation
+  version: 1.0.0
+paths:
+  /v1/dcmGeneration:
+    get:
+      summary: Get a Dcm Generation by VIN
+      operationId: getDcmGenerationByVin
+      tags:
+        - Dcm Generation
+      parameters:
+        - name: vin
+          in: header
+          description: Vehicle Identification Number (VIN)
+          required: true
+          schema:
+            $ref: "../../../build/common/vehicle/vin.yaml#/components/schemas/VIN"
+      responses:
+        200:
+          description: A specific dcm generation
+          content:
+            application/json:
+              schema:
+                $ref: "../../../build/common/vehicle/dcmGeneration.yaml#/components/schemas/DcmGeneration"
+        404:
+          description: Dcm Generation not found
+  /v1/dcmGeneration/{dcmGeneration}:
+    get:
+      summary: Get a Dcm Generation
+      operationId: getDcmGenerationByDcmGeneration
+      tags:
+        - Dcm Generation
+      parameters:
+        - name: dcmGeneration
+          in: path
+          description: Dcm Generation
+          required: true
+          schema:
+            description: Dcm Generation
+            maxLength: 15
+            type: string
+      responses:
+        200:
+          description: A specific dcm generation
+          content:
+            application/json:
+              schema:
+                $ref: "../../../build/common/vehicle/dcmGeneration.yaml#/components/schemas/DcmGeneration"
+        404:
+          description: Dcm Generation not found
+components:
+  securitySchemes:
+    jwtAuthorizer:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://soa-cv-dev-use1-preprod.auth.us-east-1.amazoncognito.com/login
+          tokenUrl: https://soa-cv-dev-use1-preprod.auth.us-east-1.amazoncognito.com/oauth2/token
+          scopes: { }
+security:
+  - jwtAuthorizer: [ ]

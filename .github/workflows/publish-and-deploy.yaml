@@ -1,0 +1,16 @@
+name: Publish Artifacts and Deploy
+
+on:
+  push:
+    branches:
+      - main
+      - patch*
+      - feature*
+  workflow_dispatch:
+
+jobs:
+  publish-and-deploy:
+    uses: subaruofamerica/cv-cicd-workflows/.github/workflows/gradle-publish-and-deploy.yaml@main
+    secrets: inherit
+    with:
+      deploy: true

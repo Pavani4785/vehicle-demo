@@ -1,0 +1,122 @@
+openapi: 3.1.1
+info:
+  title: Model
+  version: 1.0.0
+paths:
+  /v1/models:
+    get:
+      summary: Get a Model by VIN
+      operationId: getModelByVin
+      tags:
+        - Model
+      parameters:
+        - name: vin
+          in: header
+          description: Vehicle Identification Number (VIN)
+          required: true
+          schema:
+            $ref: "../../../build/common/vehicle/vin.yaml#/components/schemas/VIN"
+      responses:
+        200:
+          description: A specific model
+          content:
+            application/json:
+              schema:
+                $ref: "../../../build/common/vehicle/model.yaml#/components/schemas/Model"
+        404:
+          description: Model not found
+  /v1/models/{modelKey}:
+    get:
+      summary: Get a Model
+      operationId: getModelByModelKey
+      tags:
+        - Model
+      parameters:
+        - name: modelKey
+          in: path
+          description: Model Key
+          required: true
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 100
+      responses:
+        200:
+          description: A specific model
+          content:
+            application/json:
+              schema:
+                $ref: "../../../build/common/vehicle/model.yaml#/components/schemas/Model"
+        404:
+          description: Model not found
+  /v1/models/{modelKey}/capabilities:
+    get:
+      summary: List Model Capabilities
+      operationId: listModelCapabilities
+      tags:
+        - Model
+      parameters:
+        - name: modelKey
+          in: path
+          description: Model Key
+          required: true
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 100
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "../../../build/common/vehicle/capability.yaml#/components/schemas/Capability"
+                uniqueItems: true
+  /v1/models/{modelKey}/capabilityCodes:
+    get:
+      summary: Returns the capabilityCodes for a modelKey
+      description: By default, this endpoint only returns active capabilityCodes. Set includeInactive to true to include inactive capabilityCodes in the response.
+      operationId: getCapabilityCodesByModelKey
+      tags:
+        - Model
+      parameters:
+        - name: modelKey
+          in: path
+          description: Model Key
+          required: true
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 100
+        - name: includeInactive
+          in: query
+          description: Include Inactive Capability Codes
+          required: false
+          schema:
+            type: boolean
+            default: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                uniqueItems: true
+        404:
+          description: Model not found
+components:
+  securitySchemes:
+    jwtAuthorizer:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://soa-cv-dev-use1-preprod.auth.us-east-1.amazoncognito.com/login
+          tokenUrl: https://soa-cv-dev-use1-preprod.auth.us-east-1.amazoncognito.com/oauth2/token
+          scopes: { }
+security:
+  - jwtAuthorizer: [ ]

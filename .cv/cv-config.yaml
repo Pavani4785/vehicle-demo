@@ -1,0 +1,7 @@
+Service:
+  Name: cv-vehicle-service
+  TargetModule: vehicle-service
+Parameters:
+  EnableOracle: true
+Tags:
+  soa:res:description: cv vehicle service

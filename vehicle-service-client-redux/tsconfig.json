@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "declaration": true,
+    "sourceMap": false,
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "outDir": "dist",
+    "strict": true,
+    "noUnusedLocals": false,
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "exclude": [
+    "test",
+    "lib",
+    "node_modules"
+  ]
+}
