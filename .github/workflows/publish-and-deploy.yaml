@@ -18,12 +18,18 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
  
-    - name: Upgrade Gradle Wrapper (if needed)
+    - name: Install Gradle CLI
       run: |
-        ./gradlew wrapper --gradle-version 7.6.2
+        sudo apt-get update
+        sudo apt-get install -y gradle
+        gradle --version
+ 
+    - name: Generate and Upgrade Gradle Wrapper to 7.6.2
+      run: |
+        gradle wrapper --gradle-version 7.6.2
         chmod +x gradlew
  
-    - name: Build with Gradle (debug mode)
+    - name: Build with Gradle Wrapper
       run: ./gradlew build --stacktrace --info
  
     - name: Configure AWS credentials
@@ -53,5 +59,4 @@ jobs:
         aws lambda update-function-code \
           --function-name ${{ secrets.LAMBDA_FUNCTION_NAME }} \
           --image-uri $IMAGE_URI
- 
  
