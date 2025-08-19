@@ -18,8 +18,15 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
-    - name: Grant execute permission to gradlew
-      run: chmod +x ./gradlew
+    - name: Generate Gradle Wrapper if missing
+      run: |
+        if [ ! -f "./gradlew" ]; then
+          echo "Gradle wrapper not found. Generating..."
+          gradle wrapper
+          chmod +x gradlew
+        else
+          echo "Gradle wrapper already exists."
+        fi
 
     - name: Build with Gradle
       run: ./gradlew build
@@ -47,4 +54,6 @@ jobs:
         IMAGE_URI=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPOSITORY_NAME }}:latest
         aws lambda update-function-code \
           --function-name ${{ secrets.LAMBDA_FUNCTION_NAME }} \
+          --image-uri $IMAGE_URI
+N_NAME }} \
           --image-uri $IMAGE_URI
